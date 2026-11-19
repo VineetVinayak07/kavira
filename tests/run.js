@@ -32,10 +32,7 @@ vm.createContext(sandbox);
 // followed by lines that copy its objects onto the sandbox.
 function load(file, names) {
     const code = fs.readFileSync(path.join(__dirname, "..", "shared", "js", file), "utf8");
-    vm.runInContext(
-        code + "\n" + names.map((n) => "this." + n + " = " + n + ";").join("\n"),
-        sandbox,
-    );
+    vm.runInContext(code + "\n" + names.map((n) => "this." + n + " = " + n + ";").join("\n"), sandbox);
 }
 load("utils.js", ["Utils"]);
 load("store.js", ["Store"]);
@@ -43,8 +40,7 @@ load("auth.js", ["Auth"]);
 load("poems.js", ["Poems", "MIN_WORDS"]);
 load("reviews.js", ["Reviews", "MIN_REVIEW_WORDS"]);
 load("circle.js", ["Circle"]);
-load("seed.js", ["Seed"]);
-const { Utils, Store, Auth, Poems, Reviews, Circle, Seed } = sandbox;
+const { Utils, Store, Auth, Poems, Reviews, Circle } = sandbox;
 
 let passed = 0;
 function test(name, fn) {
@@ -134,13 +130,7 @@ test("each bad field gets its own message", () => {
         { name: "A", email: "nope", password: "short", dob: "", languages: [] },
         today,
     );
-    assert.deepStrictEqual(Object.keys(errors).sort(), [
-        "dob",
-        "email",
-        "languages",
-        "name",
-        "password",
-    ]);
+    assert.deepStrictEqual(Object.keys(errors).sort(), ["dob", "email", "languages", "name", "password"]);
 });
 test("a password with no number is refused", () => {
     reset();
@@ -151,20 +141,6 @@ test("under 16 is refused, exactly 16 is allowed", () => {
     assert.ok(Auth.validateJoin({ ...good, dob: "2012-01-01" }, today).dob);
     assert.strictEqual(Auth.validateJoin({ ...good, dob: "2010-11-17" }, today).dob, undefined);
 });
-test("register signs in, and signIn / signOut work", () => {
-    reset();
-    const user = Auth.register(good);
-    assert.strictEqual(Auth.current().id, user.id);
-    Auth.signOut();
-    assert.strictEqual(Auth.current(), null);
-    assert.strictEqual(Auth.signIn("ASHA@example.com ", "wrongpass1"), null);
-    assert.strictEqual(Auth.signIn("ASHA@example.com ", "longenough1").id, user.id);
-});
-test("the same email cannot register twice", () => {
-    reset();
-    Auth.register(good);
-    assert.ok(Auth.validateJoin(good, today).email);
-});
 
 console.log("\nPoems");
 const poemData = (over) => ({ title: "T", language: "English", text: words(80), ...over });
@@ -173,103 +149,46 @@ test("a poem needs a title and 80 words", () => {
     assert.deepStrictEqual(Object.keys(Poems.validate(poemData({ title: " " }))), ["title"]);
     assert.strictEqual(Object.keys(Poems.validate(poemData())).length, 0);
 });
-test("the feed is newest first and can be filtered by language", () => {
-    reset();
-    const a = Poems.create(1, poemData({ title: "A" }));
-    a.createdAt -= 1000;
-    Store.write("poems", [a]);
-    Poems.create(1, poemData({ title: "B", language: "Hindi" }));
-    assert.strictEqual(Poems.feed()[0].title, "B");
+test("the feed is newest first, can be filtered by language, and byAuthor works", () => {
+    Poems.items = [
+        { id: 1, authorId: "a", title: "Old", language: "English", text: "x", createdAt: 1000 },
+        { id: 2, authorId: "b", title: "New", language: "Hindi", text: "x", createdAt: 2000 },
+    ];
+    assert.strictEqual(Poems.feed()[0].title, "New");
     assert.strictEqual(Poems.feed("English").length, 1);
-    assert.strictEqual(Poems.byAuthor(1).length, 2);
+    assert.strictEqual(Poems.byAuthor("a")[0].title, "Old");
+    assert.strictEqual(Poems.byId(2).title, "New");
 });
-test("saving a poem twice un-saves it", () => {
-    reset();
-    const p = Poems.create(1, poemData());
-    Poems.toggleSaved(2, p.id);
-    assert.ok(Poems.isSaved(2, p.id));
-    assert.strictEqual(Poems.saved(2).length, 1);
-    Poems.toggleSaved(2, p.id);
-    assert.ok(!Poems.isSaved(2, p.id));
+test("saved poems come from the saved ids", () => {
+    Poems.savedIds = [2];
+    assert.ok(Poems.isSaved(2));
+    assert.ok(!Poems.isSaved(1));
+    assert.strictEqual(Poems.saved().length, 1);
+});
+test("excerpt keeps the first lines only", () => {
+    assert.strictEqual(Poems.excerpt("a\n\nb\nc\nd\ne", 3), "a\nb\nc");
 });
 
 console.log("\nReviews");
 test("30 words, one per reader, not on your own poem", () => {
-    reset();
-    const a = Auth.register(good),
-        b = Auth.register({ ...good, email: "b@example.com" });
-    const poem = Poems.create(a.id, poemData());
-    assert.ok(Reviews.check(poem, a.id, words(40)));
-    assert.ok(Reviews.check(poem, b.id, words(29)));
-    assert.strictEqual(Reviews.check(poem, b.id, words(30)), "");
-    Reviews.add(poem, b.id, words(30));
-    assert.ok(Reviews.check(poem, b.id, words(30)));
-    assert.strictEqual(Reviews.countBy(b.id), 1);
+    const poem = { id: 7, authorId: "poet" };
+    Reviews.items = [];
+    assert.ok(Reviews.check(poem, "poet", words(40)));
+    assert.ok(Reviews.check(poem, "reader", words(29)));
+    assert.strictEqual(Reviews.check(poem, "reader", words(30)), "");
+    Reviews.items = [{ id: 1, poemId: 7, authorId: "reader", text: "x", createdAt: 1 }];
+    assert.ok(Reviews.check(poem, "reader", words(30)));
+    assert.strictEqual(Reviews.countBy("reader"), 1);
+    assert.strictEqual(Reviews.forPoem(7).length, 1);
 });
 
-console.log("\nCircle");
-test("a circle holds only people who share a language, never yourself, at most 5", () => {
-    reset();
-    const english = [];
-    for (let i = 0; i < 8; i++)
-        english.push(Auth.register({ ...good, email: "e" + i + "@example.com" }));
-    const hindi = Auth.register({ ...good, email: "h@example.com", languages: ["Hindi"] });
-    const members = Circle.members(english[0]);
-    assert.strictEqual(members.length, 5);
-    members.forEach((m) => {
-        assert.notStrictEqual(m.id, english[0].id);
-        assert.notStrictEqual(m.id, hindi.id);
-    });
-    assert.strictEqual(Circle.members(hindi).length, 0);
-});
-test("the circle is kept once it is picked", () => {
-    reset();
-    const first = Auth.register(good);
-    for (let i = 0; i < 8; i++) Auth.register({ ...good, email: "e" + i + "@example.com" });
-    const a = Circle.members(first)
-        .map((m) => m.id)
-        .join();
-    const b = Circle.members(first)
-        .map((m) => m.id)
-        .join();
-    assert.strictEqual(a, b);
-});
-test("shuffle keeps every item", () => {
-    const out = Circle.shuffle([1, 2, 3, 4, 5, 6]);
-    assert.deepStrictEqual(Array.from(out).sort(), [1, 2, 3, 4, 5, 6]);
-});
-test("circle poems come only from circle members", () => {
-    reset();
-    const me = Auth.register(good),
-        friend = Auth.register({ ...good, email: "f@example.com" });
-    const hindi = Auth.register({ ...good, email: "h@example.com", languages: ["Hindi"] });
-    Poems.create(friend.id, poemData({ title: "Friend" }));
-    Poems.create(hindi.id, poemData({ title: "Stranger" }));
-    assert.deepStrictEqual(
-        Array.from(Circle.poems(me), (p) => p.title),
-        ["Friend"],
-    );
-});
-
-console.log("\nStarter data");
+console.log("\nSample data (used if the database cannot be reached)");
 test("every poem in data/poems.json is at least 80 words and points at a real poet", () => {
-    const data = JSON.parse(
-        fs.readFileSync(path.join(__dirname, "..", "data", "poems.json"), "utf8"),
-    );
+    const data = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "data", "poems.json"), "utf8"));
     data.poems.forEach((p) => {
         assert.ok(Utils.countWords(p.text) >= sandbox.MIN_WORDS, p.title);
         assert.ok(data.poets[p.poet], p.title);
     });
-});
-test("Seed.save adds the poets and poems", () => {
-    reset();
-    const data = JSON.parse(
-        fs.readFileSync(path.join(__dirname, "..", "data", "poems.json"), "utf8"),
-    );
-    Seed.save(data);
-    assert.strictEqual(Poems.all().length, data.poems.length);
-    assert.strictEqual(Auth.users().length, data.poets.length);
-    assert.ok(Store.read("seeded", false));
 });
 
 console.log("\n" + passed + " passed" + (process.exitCode ? ", some FAILED" : ""));

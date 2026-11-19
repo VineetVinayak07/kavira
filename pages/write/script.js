@@ -1,17 +1,20 @@
 // write page: write a poem, watch the word count, and publish it.
 // The unfinished poem is kept in Session Storage, so a refresh does not lose it.
 
-const user = Layout.requireSignIn();
+let user = null;
 
-if (user) {
-    Layout.mount("write");
-    restoreDraft();
-    Utils.watchWordCount(
-        document.getElementById("text"),
-        document.getElementById("word-count"),
-        MIN_WORDS,
-    );
-}
+Layout.requireSignIn().then(function (found) {
+    if (found) {
+        user = found;
+        Layout.mount("write");
+        restoreDraft();
+        Utils.watchWordCount(
+            document.getElementById("text"),
+            document.getElementById("word-count"),
+            MIN_WORDS,
+        );
+    }
+});
 
 // Reads everything typed into the form.
 function readForm() {
@@ -44,7 +47,7 @@ function showErrors(errors) {
 }
 
 document.getElementById("write-form").addEventListener("input", saveDraft);
-document.getElementById("write-form").addEventListener("submit", function (event) {
+document.getElementById("write-form").addEventListener("submit", async function (event) {
     event.preventDefault();
     const data = readForm();
     const errors = Poems.validate(data);
@@ -53,7 +56,15 @@ document.getElementById("write-form").addEventListener("submit", function (event
         document.getElementById(errors.title ? "title" : "text").focus();
         return;
     }
-    const poem = Poems.create(user.id, data);
-    Store.removeTemp("draft");
-    window.location.href = "../poem/index.html?id=" + poem.id;
+
+    const button = document.querySelector("#write-form button[type=submit]");
+    button.disabled = true;
+    try {
+        const poem = await Poems.create(data);
+        Store.removeTemp("draft");
+        window.location.href = "../poem/index.html?id=" + poem.id;
+    } catch (error) {
+        button.disabled = false;
+        document.getElementById("text-error").textContent = error.message;
+    }
 });

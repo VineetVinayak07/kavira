@@ -42,8 +42,7 @@ const Utils = {
     watchWordCount(box, label, minimum) {
         function update() {
             const words = Utils.countWords(box.value);
-            label.textContent =
-                words >= minimum ? words + " words" : words + " of " + minimum + " words";
+            label.textContent = words >= minimum ? words + " words" : words + " of " + minimum + " words";
             label.dataset.enough = words >= minimum ? "true" : "false";
         }
         box.addEventListener("input", update);

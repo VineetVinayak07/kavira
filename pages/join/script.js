@@ -3,7 +3,12 @@
 const form = document.getElementById("join-form");
 const fieldNames = ["name", "email", "password", "dob", "languages"];
 
-if (Auth.current()) window.location.href = "../home/index.html";
+// Already signed in? Go straight to Home.
+Auth.current()
+    .then(function (user) {
+        if (user) window.location.href = "../home/index.html";
+    })
+    .catch(function () {});
 
 // Reads everything the person typed into one object.
 function readForm() {
@@ -26,12 +31,12 @@ function showErrors(errors) {
     });
 }
 
-form.addEventListener("submit", function (event) {
+form.addEventListener("submit", async function (event) {
     event.preventDefault();
+    document.getElementById("form-error").textContent = "";
     const data = readForm();
     const errors = Auth.validateJoin(data);
     showErrors(errors);
-
     if (Object.keys(errors).length > 0) {
         // Put the cursor on the first problem so it is easy to fix.
         const first = fieldNames.find((field) => errors[field]);
@@ -40,6 +45,13 @@ form.addEventListener("submit", function (event) {
         return;
     }
 
-    Auth.register(data);
-    window.location.href = "../home/index.html";
+    const button = form.querySelector("button[type=submit]");
+    button.disabled = true;
+    try {
+        await Auth.register(data);
+        window.location.href = "../home/index.html";
+    } catch (error) {
+        button.disabled = false;
+        document.getElementById("form-error").textContent = error.message;
+    }
 });

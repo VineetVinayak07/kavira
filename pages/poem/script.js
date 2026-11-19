@@ -1,23 +1,29 @@
 // poem page: shows one poem (its id is in the web address) and its reviews.
 
-const user = Layout.requireSignIn();
+let user = null;
 let poem = null;
 
-if (user) {
+Layout.requireSignIn().then(function (found) {
+    if (found) {
+        user = found;
+        start();
+    }
+});
+
+// Loads the poem, the reviews and your saved list, then draws the page.
+async function start() {
     Layout.mount("home");
-    // The poem might be one of the starter poems, so make sure they are loaded first.
-    Seed.load()
-        .catch(function () {})
-        .then(function () {
-            const id = Number(new URLSearchParams(window.location.search).get("id"));
-            poem = Poems.byId(id);
-            if (poem) {
-                showPoem();
-                showReviews();
-            } else {
-                document.getElementById("poem-missing").hidden = false;
-            }
-        });
+    await Poems.load();
+    await Poems.loadSaved();
+    await Reviews.load();
+    const id = Number(new URLSearchParams(window.location.search).get("id"));
+    poem = Poems.byId(id);
+    if (poem) {
+        showPoem();
+        showReviews();
+    } else {
+        document.getElementById("poem-missing").hidden = false;
+    }
 }
 
 // Fills in the poem itself. Everything goes in with textContent, never as HTML.
@@ -29,8 +35,7 @@ function showPoem() {
     document.getElementById("poem-title").textContent = poem.title;
     document.getElementById("poem-title").lang = lang;
     document.getElementById("poem-author").textContent = author ? author.name : "Unknown poet";
-    document.getElementById("poem-meta").textContent =
-        poem.language + " · " + Utils.fullDate(poem.createdAt);
+    document.getElementById("poem-meta").textContent = poem.language + " · " + Utils.fullDate(poem.createdAt);
     const text = document.getElementById("poem-text");
     text.textContent = poem.text;
     text.lang = lang;
@@ -40,13 +45,18 @@ function showPoem() {
 // The Save / Saved button under the poem.
 function showSaveButton() {
     const button = document.getElementById("save-button");
-    const saved = Poems.isSaved(user.id, poem.id);
+    const saved = Poems.isSaved(poem.id);
     button.textContent = saved ? "Saved" : "Save this poem";
     button.setAttribute("aria-pressed", saved);
 }
 
-document.getElementById("save-button").addEventListener("click", function () {
-    Poems.toggleSaved(user.id, poem.id);
+document.getElementById("save-button").addEventListener("click", async function () {
+    try {
+        await Poems.toggleSaved(poem.id);
+    } catch (error) {
+        document.getElementById("review-note").hidden = false;
+        document.getElementById("review-note").textContent = error.message;
+    }
     showSaveButton();
 });
 
@@ -106,13 +116,20 @@ Utils.watchWordCount(
     MIN_REVIEW_WORDS,
 );
 
-document.getElementById("review-form").addEventListener("submit", function (event) {
+document.getElementById("review-form").addEventListener("submit", async function (event) {
     event.preventDefault();
     const text = document.getElementById("review-text").value;
     const problem = Reviews.check(poem, user.id, text);
     document.getElementById("review-error").textContent = problem;
     if (problem) return;
-    Reviews.add(poem, user.id, text);
-    document.getElementById("review-text").value = "";
-    showReviews();
+    const button = document.querySelector("#review-form button[type=submit]");
+    button.disabled = true;
+    try {
+        await Reviews.add(poem, text);
+        document.getElementById("review-text").value = "";
+        showReviews();
+    } catch (error) {
+        document.getElementById("review-error").textContent = error.message;
+    }
+    button.disabled = false;
 });

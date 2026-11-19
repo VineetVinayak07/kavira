@@ -92,6 +92,13 @@ drop policy if exists "poets can unsave poems" on public.saved;
 create policy "poets can unsave poems" on public.saved
     for delete to authenticated using (user_id = auth.uid());
 
+-- Let signed-in poets reach the tables through the website's API.
+-- (The security rules above still decide which rows they can see or add.)
+grant usage on schema public to authenticated;
+grant select on public.profiles, public.poems, public.reviews to authenticated;
+grant insert on public.poems, public.reviews to authenticated;
+grant select, insert, delete on public.saved to authenticated;
+
 -- =====================================================================
 -- 3. FUNCTIONS
 -- =====================================================================

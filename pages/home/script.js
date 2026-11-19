@@ -1,22 +1,35 @@
 // home page: the poem feed (filter by language), plus the "Saved" box you can drag poems into.
 
-const user = Layout.requireSignIn();
+let user = null;
 
-if (user) {
+Layout.requireSignIn().then(function (found) {
+    if (found) {
+        user = found;
+        start();
+    }
+});
+
+// Sets up the page, loads the poems from the database, then draws everything.
+async function start() {
     Layout.mount("home");
     document.getElementById("welcome").textContent = user.name.split(" ")[0];
+    // Local Storage remembers which language filter you used last time.
+    document.getElementById("language-filter").value = Store.read("language-filter", "");
     setUpDropBox();
-    // Load the starter poems the first time, then draw the page.
-    Seed.load()
-        .then(drawAll)
-        .catch(function (error) {
-            console.error(error);
-            drawAll();
-            const notice = document.getElementById("feed-notice");
-            notice.hidden = false;
-            notice.textContent =
-                "The starter poems could not load. Open the site with VS Code Live Server (see README), not by double-clicking the file.";
-        });
+
+    await Poems.load();
+    await Poems.loadSaved();
+    if (Poems.usingSamples) {
+        showNotice("The database could not be reached, so these are sample poems. Saving will not work.");
+    }
+    drawAll();
+}
+
+// Shows a message above the feed.
+function showNotice(text) {
+    const notice = document.getElementById("feed-notice");
+    notice.hidden = false;
+    notice.textContent = text;
 }
 
 // Draws the feed and the saved list.
@@ -40,10 +53,7 @@ function showFeed() {
     }
     poems.forEach(function (poem) {
         const author = Auth.byId(poem.authorId);
-        if (author)
-            feed.append(
-                PoemCard.render(poem, author, Poems.isSaved(user.id, poem.id), saveFromButton),
-            );
+        if (author) feed.append(PoemCard.render(poem, author, Poems.isSaved(poem.id), saveFromButton));
     });
 }
 
@@ -51,7 +61,7 @@ function showFeed() {
 function showSaved() {
     const list = document.getElementById("saved-list");
     list.innerHTML = "";
-    Poems.saved(user.id).forEach(function (poem) {
+    Poems.saved().forEach(function (poem) {
         const item = document.createElement("li");
         const link = document.createElement("a");
         link.href = "../poem/index.html?id=" + poem.id;
@@ -61,10 +71,19 @@ function showSaved() {
     });
 }
 
-// The Save button on a card saves or un-saves that poem.
-function saveFromButton(poem) {
-    Poems.toggleSaved(user.id, poem.id);
+// Saves or un-saves a poem, then redraws. Shows a message if the database refuses.
+async function toggleAndRedraw(poemId) {
+    try {
+        await Poems.toggleSaved(poemId);
+    } catch (error) {
+        showNotice(error.message);
+    }
     drawAll();
+}
+
+// The Save button on a card.
+function saveFromButton(poem) {
+    toggleAndRedraw(poem.id);
 }
 
 // Drag and Drop: dropping a poem card on the box saves it.
@@ -81,9 +100,11 @@ function setUpDropBox() {
         event.preventDefault();
         box.classList.remove("saved--over");
         const id = Number(event.dataTransfer.getData("text/plain"));
-        if (Poems.byId(id) && !Poems.isSaved(user.id, id)) Poems.toggleSaved(user.id, id);
-        drawAll();
+        if (Poems.byId(id) && !Poems.isSaved(id)) toggleAndRedraw(id);
     });
 }
 
-document.getElementById("language-filter").addEventListener("change", showFeed);
+document.getElementById("language-filter").addEventListener("change", function (event) {
+    Store.write("language-filter", event.target.value);
+    showFeed();
+});

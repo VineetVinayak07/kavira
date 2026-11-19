@@ -19,7 +19,7 @@ This is our project for CSE326 (Internet Programming).
 
 ## How to run it on your own computer
 
-You need VS Code and its "Live Server" extension. The site will not work if you just double-click `index.html`, because it has to load the starter poems from a file and browsers block that.
+You need VS Code and its "Live Server" extension. The site will not work if you just double-click `index.html`, because browsers block the files it needs to load.
 
 1. Open the `kavira` folder in VS Code.
 2. Right-click `index.html` and choose **Open with Live Server**.
@@ -32,21 +32,24 @@ Everything is HTML, CSS and JavaScript. There is no server we wrote ourselves.
 
 - Each page has its own folder inside `pages`, with three files: `index.html` (what you see), `style.css` (how it looks) and `script.js` (what it does).
 - Code that many pages need lives in `shared`. That is where the colours and fonts are kept, and where the rules (80 words, 30 words, 16+) are written.
-- The poems, reviews and accounts are saved inside your browser.
-- `data/poems.json` is a plain text file with the starter poems. JSON is just a simple way to write a list of things in text. The site reads it with `fetch` the first time you open it, so the feed is never empty.
+- Accounts, poems, reviews and saved poems are stored online in a **Supabase** database (Supabase is a free service that gives you a database and a login system). Everyone who uses the site sees the same poems, and your circle is the same on every device.
+- The database itself checks the rules (80 words, 30 words, one review per poem, no review on your own poem, 16 or older), so they cannot be skipped even by someone clever.
+- `data/poems.json` is a plain text file with sample poems. JSON is just a simple way to write a list of things in text. If the database cannot be reached, the site reads this file with `fetch` and shows the sample poems instead of an empty page.
+- Your browser's Local Storage remembers which language filter you picked on Home, and Session Storage keeps your half-written poem.
 
 ## What is in each folder
 
 ```
 kavira/
   index.html           opens the sign-in page
-  data/poems.json      the starter poems and poets
+  data/poems.json      sample poems, used only if the database cannot be reached
   assets/              the logo, audio and video
-  supabase/            the database setup (see below)
+  supabase/schema.sql  the database: tables, security rules, circle picker, starter poems
   shared/
     css/               colours and fonts, then buttons and forms, then the page layout
-    js/                utils (small helpers), store (saving), auth (accounts),
-                       poems, reviews, circle (the rules), poem-card and layout (what you see)
+    js/                config and db (connection to Supabase), utils (small helpers),
+                       store (browser storage), auth (accounts), poems, reviews, circle
+                       (loading and saving), poem-card and layout (what you see)
   pages/               sign-in, join, home, circle, write, poem, profile, about, rules
   tests/run.js         checks that the rules work
 ```
@@ -63,8 +66,8 @@ kavira/
 | Events and changing the page | the `script.js` in each page folder |
 | Checking forms with regular expressions | `shared/js/auth.js` and `shared/js/utils.js` |
 | Dates and times | `shared/js/utils.js` (age check, "3 hours ago") |
-| Local Storage and Session Storage | `shared/js/store.js`, and the draft in `pages/write` |
-| Fetch and JSON | `shared/js/seed.js` and `data/poems.json` |
+| Local Storage and Session Storage | `shared/js/store.js`: language filter in `pages/home`, draft in `pages/write` |
+| Fetch, JSON and async/await | `shared/js/poems.js` (sample file), `data/poems.json`, and every call to Supabase |
 | Drag and drop | `pages/home/script.js` |
 | GitHub and GitHub Pages / Vercel | this repo and the live link above |
 
@@ -76,13 +79,14 @@ kavira/
 - Only `store.js` saves things. Pages ask it, they never touch browser storage themselves.
 - Every function has a comment above it saying what it does.
 
-## Starting fresh
+## Setting up your own Supabase (only if you want to run your own copy)
 
-If you want to reset the site in your browser: press F12, open the Application tab, find Local Storage and clear it.
+1. Create a free project at supabase.com.
+2. Open the SQL Editor, paste all of `supabase/schema.sql` and press Run.
+3. Go to Authentication, then Sign In / Providers, then Email, and turn off "Confirm email".
+4. Copy the project URL and the publishable key into `shared/js/config.js`.
 
-## Next step
-
-We plan to move accounts and poems to a Supabase database, so poets on different computers can share the same circles. The setup for that is in `supabase/schema.sql`.
+The URL and publishable key in `config.js` are meant to be public. Never put the secret or service_role key in the code.
 
 ## Who did what
 

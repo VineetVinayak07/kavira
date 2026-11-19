@@ -87,12 +87,16 @@
                 <p class="join-form__rules">
                     By creating an account you agree to the <a href="../rules/index.html">Community rules</a>.
                 </p>
+                <p class="field__error" id="form-error" role="alert"></p>
                 <button class="btn btn--primary btn--block" type="submit">
                     Create account and join a circle
                 </button>
             </form>
         </main>
 
+        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+        <script src="../../shared/js/config.js"></script>
+        <script src="../../shared/js/db.js"></script>
         <script src="../../shared/js/utils.js"></script>
         <script src="../../shared/js/store.js"></script>
         <script src="../../shared/js/auth.js"></script>

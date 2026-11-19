@@ -49,9 +49,9 @@ const Layout = {
         document.getElementById("menu").innerHTML = links.join("");
     },
 
-    // Sends signed-out visitors to the sign-in page. Returns the user otherwise.
-    requireSignIn() {
-        const user = Auth.current();
+    // Sends signed-out visitors to the sign-in page. Returns the user otherwise (or null).
+    async requireSignIn() {
+        const user = await Auth.current();
         if (!user) window.location.href = "../sign-in/index.html";
         return user;
     },
