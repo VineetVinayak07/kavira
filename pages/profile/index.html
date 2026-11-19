@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta
+            name="description"
+            content="Kavira: a place for poets writing in English and Hindi to share poems and review each other."
+        />
+        <title>Kavira - Profile</title>
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Serif+Devanagari:wght@400;600&family=Source+Serif+4:wght@400;600&display=swap"
+        />
+        <link rel="stylesheet" href="../../shared/css/tokens.css" />
+        <link rel="stylesheet" href="../../shared/css/base.css" />
+        <link rel="stylesheet" href="../../shared/css/components.css" />
+        <link rel="stylesheet" href="../../shared/css/layout.css" />
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <div class="app">
+            <aside class="app__nav">
+                <a class="app__logo" href="../home/index.html">Kavira</a>
+                <nav id="menu" class="menu" aria-label="Main"></nav>
+            </aside>
+
+            <main class="app__main">
+                <div class="app__header">
+                    <span>Profile</span>
+                    <button id="sign-out" class="btn btn--small" type="button">Sign out</button>
+                </div>
+
+                <section class="profile__top">
+                    <span id="profile-initial" class="avatar profile__avatar" aria-hidden="true"></span>
+                    <div>
+                        <h1 id="profile-name"></h1>
+                        <p id="profile-languages" class="profile__languages"></p>
+                    </div>
+                </section>
+
+                <section class="profile__stats" aria-label="Your numbers">
+                    <dl>
+                        <dt>Poems</dt>
+                        <dd id="stat-poems">0</dd>
+                    </dl>
+                    <dl>
+                        <dt>Reviews written</dt>
+                        <dd id="stat-reviews">0</dd>
+                    </dl>
+                    <dl>
+                        <dt>Saved</dt>
+                        <dd id="stat-saved">0</dd>
+                    </dl>
+                </section>
+
+                <section aria-labelledby="mine-heading">
+                    <h2 id="mine-heading" class="profile__heading">My poems</h2>
+                    <div id="my-poems"></div>
+                </section>
+
+                <section aria-labelledby="saved-heading">
+                    <h2 id="saved-heading" class="profile__heading">Saved poems</h2>
+                    <div id="saved-poems"></div>
+                </section>
+            </main>
+        </div>
+
+        <script src="../../shared/js/utils.js"></script>
+        <script src="../../shared/js/store.js"></script>
+        <script src="../../shared/js/auth.js"></script>
+        <script src="../../shared/js/poems.js"></script>
+        <script src="../../shared/js/reviews.js"></script>
+        <script src="../../shared/js/circle.js"></script>
+        <script src="../../shared/js/layout.js"></script>
+        <script src="../../shared/js/poem-card.js"></script>
+        <script src="../../shared/js/seed.js"></script>
+        <script src="script.js"></script>
+    </body>
+</html>

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120" role="img" aria-label="Kavira mark: a quill over three lines of verse">
+  <rect x="2" y="2" width="116" height="116" fill="#FBFBF9" stroke="#111111" stroke-width="3"/>
+  <path d="M30 80 C 50 70, 70 45, 92 22 C 88 50, 72 72, 44 90 Z" fill="#111111"/>
+  <path d="M30 80 L 22 100" stroke="#111111" stroke-width="3" stroke-linecap="round"/>
+  <line x1="40" y1="100" x2="96" y2="100" stroke="#111111" stroke-width="3"/>
+  <line x1="52" y1="108" x2="96" y2="108" stroke="#111111" stroke-width="3"/>
+</svg>

@@ -1,0 +1,35 @@
+.rules {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 8px 32px 80px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+.rules h1 {
+    font-size: 40px;
+}
+.rules__lead {
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+}
+.rules__section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+}
+.rules__section h2 {
+    font-size: 24px;
+}
+.rules__section p {
+    line-height: 1.65;
+    max-width: 640px;
+}
+
+/* inside the About page's iframe the header is not needed */
+.embedded .auth-header {
+    display: none;
+}

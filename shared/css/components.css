@@ -1,0 +1,305 @@
+/* components.css - small reusable pieces: buttons, form fields, tags, cards. */
+
+/* buttons */
+.btn {
+    font-family: var(--font-ui);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 48px;
+    padding: 0 24px;
+    border: 1px solid var(--line);
+    background: var(--paper);
+    color: var(--ink);
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+}
+.btn--primary {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #ffffff;
+}
+.btn--danger {
+    border-color: var(--danger);
+    color: var(--danger);
+}
+.btn--small {
+    min-height: var(--tap);
+    padding: 0 16px;
+    font-size: 14px;
+}
+.btn--block {
+    width: 100%;
+}
+.btn:disabled {
+    background: var(--disabled-bg);
+    border-color: var(--disabled-line);
+    color: var(--ink-soft);
+    cursor: not-allowed;
+}
+
+/* form fields: <div class="field"><label><input><p class="field__hint"><p class="field__error"> */
+fieldset.field {
+    border: 0;
+    padding: 0;
+    margin: 0;
+    min-width: 0;
+}
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.field > label,
+.field > legend {
+    font-size: 14px;
+    font-weight: 500;
+    padding: 0;
+}
+.field > legend {
+    margin-bottom: 8px;
+}
+.field input[type="text"],
+.field input[type="email"],
+.field input[type="password"],
+.field input[type="date"],
+.field select,
+.field textarea {
+    width: 100%;
+    min-height: 48px;
+    padding: 0 14px;
+    border: 1px solid var(--line);
+    background: var(--paper);
+    font-size: 16px;
+}
+.field textarea {
+    padding: 14px;
+    min-height: 120px;
+    line-height: 1.6;
+    resize: vertical;
+}
+.field__hint {
+    font-size: 14px;
+    color: var(--ink-faint);
+}
+.field__error {
+    font-size: 14px;
+    color: var(--danger);
+    min-height: 0;
+}
+.field__error:empty {
+    display: none;
+}
+.field input[aria-invalid="true"] {
+    border-color: var(--danger);
+}
+
+/* a checkbox shown as a bordered box */
+.choice {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-height: 64px;
+    padding: 0 16px;
+    border: 1px solid var(--line);
+    background: var(--paper);
+    cursor: pointer;
+}
+.choice input {
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    accent-color: var(--accent);
+}
+.choice-row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+/* small label such as RANDOM or CUSTOM */
+.tag {
+    display: inline-block;
+    border: 1px solid var(--line);
+    padding: 2px 8px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+}
+
+/* a white box with a black border */
+.card {
+    border: 1px solid var(--line);
+    background: var(--paper);
+    padding: 40px;
+}
+
+/* tabs under the page header */
+.tabs {
+    display: flex;
+    height: var(--header-height);
+    border-bottom: 1px solid var(--line);
+}
+.tabs button {
+    flex: 1;
+    background: none;
+    border: 0;
+    font-weight: 500;
+    color: var(--ink-faint);
+    cursor: pointer;
+}
+.tabs button[aria-selected="true"] {
+    font-weight: 600;
+    color: var(--ink);
+    box-shadow: inset 0 -3px 0 var(--accent);
+}
+
+.notice {
+    border: 1px solid var(--line);
+    background: var(--paper);
+    padding: 12px 16px;
+    font-size: 14px;
+}
+
+/* avatar - a round-less square with the poet's first letter */
+.avatar {
+    width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--ink);
+    font-weight: 600;
+    font-size: 14px;
+}
+
+/* poem card - one poem in a list (Home, Discover, Profile) */
+.poem-card {
+    padding: 24px 32px;
+    border-bottom: 1px solid var(--line-soft);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.poem-card__author {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+}
+.poem-card__meta {
+    color: var(--ink-faint);
+}
+.poem-card__title {
+    font-family: var(--font-serif);
+    font-size: 24px;
+    font-weight: 600;
+}
+.poem-card__title a {
+    text-decoration: none;
+}
+.poem-card__title a:hover {
+    text-decoration: underline;
+}
+.poem-card__excerpt {
+    font-family: var(--font-serif);
+    font-size: 18px;
+    line-height: 1.7;
+    white-space: pre-line;
+}
+.poem-card__foot {
+    display: flex;
+    gap: 16px;
+    font-size: 14px;
+    color: var(--ink-faint);
+}
+@media (max-width: 720px) {
+    .poem-card {
+        padding: 20px 16px;
+    }
+}
+
+/* ---- touches that use the CSS topics from the course ---- */
+
+/* transitions: buttons and cards change gently on hover and focus */
+.btn {
+    transition:
+        background-color 0.2s,
+        color 0.2s,
+        transform 0.1s;
+}
+.btn:hover:not(:disabled) {
+    background: var(--active);
+}
+.btn--primary:hover:not(:disabled) {
+    background: var(--ink-soft);
+    border-color: var(--ink-soft);
+}
+.btn:active:not(:disabled) {
+    transform: translateY(1px);
+}
+.poem-card {
+    transition: background-color 0.2s;
+}
+.poem-card:hover {
+    background: var(--paper);
+}
+.poem-card[draggable="true"] {
+    cursor: grab;
+}
+
+/* animation: poem cards fade in when the feed is drawn */
+@keyframes fade-up {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+.poem-card {
+    animation: fade-up 0.35s ease-out both;
+}
+.poem-card:nth-child(2) {
+    animation-delay: 0.05s;
+}
+.poem-card:nth-child(3) {
+    animation-delay: 0.1s;
+}
+.poem-card:nth-child(n + 4) {
+    animation-delay: 0.15s;
+}
+@media (prefers-reduced-motion: reduce) {
+    .poem-card {
+        animation: none;
+    }
+    .btn,
+    .poem-card {
+        transition: none;
+    }
+}
+
+/* pseudo-element: a star after the label of every required field */
+.field > label.required::after {
+    content: " *";
+}
+
+/* attribute selectors: links that leave the site get an arrow; inputs that fail get a red edge */
+a[target="_blank"]::after {
+    content: " \2197";
+}
+.field textarea[aria-invalid="true"] {
+    border-color: var(--danger);
+}
+
+/* focus: a clear outline on every form control */
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+    outline: 3px solid var(--ink);
+    outline-offset: 2px;
+}

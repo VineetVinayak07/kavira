@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Kavira - Sign in</title>
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Serif+Devanagari:wght@400;600&family=Source+Serif+4:wght@400;600&display=swap"
+        />
+        <link rel="stylesheet" href="../../shared/css/tokens.css" />
+        <link rel="stylesheet" href="../../shared/css/base.css" />
+        <link rel="stylesheet" href="../../shared/css/components.css" />
+        <link rel="stylesheet" href="../../shared/css/layout.css" />
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <header class="auth-header">
+            <a class="logo" href="index.html">Kavira</a>
+            <nav>
+                <a class="link" href="../about/index.html">About</a>
+                <a class="link" href="../join/index.html">Create an account</a>
+            </nav>
+        </header>
+
+        <main class="sign-in">
+            <section class="sign-in__intro">
+                <h1>Every poem deserves a reader.</h1>
+                <p>
+                    Kavira places you in a small circle of poets who read and review each other's work, in
+                    English and Hindi.
+                </p>
+                <ul>
+                    <li>Poems of 80 words or more</li>
+                    <li>Circles of up to six poets</li>
+                    <li>Public, thoughtful reviews</li>
+                </ul>
+            </section>
+
+            <form id="sign-in-form" class="card sign-in__form" novalidate>
+                <h2>Sign in</h2>
+                <div class="field">
+                    <label for="email">Email</label>
+                    <input id="email" type="email" autocomplete="email" />
+                    <p class="field__error" id="email-error" role="alert"></p>
+                </div>
+                <div class="field">
+                    <label for="password">Password</label>
+                    <input id="password" type="password" autocomplete="current-password" />
+                    <p class="field__error" id="password-error" role="alert"></p>
+                </div>
+                <button class="btn btn--primary btn--block" type="submit">Sign in</button>
+                <p>
+                    New to Kavira? <a href="../join/index.html"><strong>Create an account</strong></a>
+                </p>
+            </form>
+        </main>
+
+        <script src="../../shared/js/utils.js"></script>
+        <script src="../../shared/js/store.js"></script>
+        <script src="../../shared/js/auth.js"></script>
+        <script src="script.js"></script>
+    </body>
+</html>

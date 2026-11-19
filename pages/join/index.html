@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Kavira - Create your account</title>
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Serif+Devanagari:wght@400;600&family=Source+Serif+4:wght@400;600&display=swap"
+        />
+        <link rel="stylesheet" href="../../shared/css/tokens.css" />
+        <link rel="stylesheet" href="../../shared/css/base.css" />
+        <link rel="stylesheet" href="../../shared/css/components.css" />
+        <link rel="stylesheet" href="../../shared/css/layout.css" />
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <header class="auth-header">
+            <a class="logo" href="../sign-in/index.html">Kavira</a>
+            <a class="link" href="../sign-in/index.html">Sign in</a>
+        </header>
+
+        <main>
+            <form id="join-form" class="card join-form" novalidate>
+                <div>
+                    <h1>Create your account</h1>
+                    <p class="join-form__lead">
+                        Tell us who you are and what you write in. We will find your circle.
+                    </p>
+                </div>
+
+                <div class="field">
+                    <label for="name">Name as it appears on your poems</label>
+                    <input
+                        id="name"
+                        type="text"
+                        placeholder="Your pen name or real name"
+                        autocomplete="name"
+                    />
+                    <p class="field__error" id="name-error" role="alert"></p>
+                </div>
+
+                <div class="field">
+                    <label for="email">Email</label>
+                    <input id="email" type="email" placeholder="you@example.com" autocomplete="email" />
+                    <p class="field__error" id="email-error" role="alert"></p>
+                </div>
+
+                <div class="field">
+                    <label for="password">Password</label>
+                    <input
+                        id="password"
+                        type="password"
+                        placeholder="8+ characters, a letter and a number"
+                        autocomplete="new-password"
+                    />
+                    <p class="field__error" id="password-error" role="alert"></p>
+                </div>
+
+                <div class="field">
+                    <label for="dob">Date of birth</label>
+                    <input id="dob" type="date" />
+                    <p class="field__hint">
+                        You must be 16 or older to join. Only you can see your date of birth.
+                    </p>
+                    <p class="field__error" id="dob-error" role="alert"></p>
+                </div>
+
+                <fieldset class="field" id="languages">
+                    <legend>Languages you write in</legend>
+                    <div class="choice-row">
+                        <label class="choice" for="lang-en"
+                            ><input id="lang-en" type="checkbox" name="language" value="English" checked />
+                            <span>English</span></label
+                        >
+                        <label class="choice" for="lang-hi"
+                            ><input id="lang-hi" type="checkbox" name="language" value="Hindi" />
+                            <span lang="hi">हिन्दी</span></label
+                        >
+                    </div>
+                    <p class="field__hint">
+                        You join one circle of up to six poets for each language you choose.
+                    </p>
+                    <p class="field__error" id="languages-error" role="alert"></p>
+                </fieldset>
+
+                <p class="join-form__rules">
+                    By creating an account you agree to the <a href="../rules/index.html">Community rules</a>.
+                </p>
+                <button class="btn btn--primary btn--block" type="submit">
+                    Create account and join a circle
+                </button>
+            </form>
+        </main>
+
+        <script src="../../shared/js/utils.js"></script>
+        <script src="../../shared/js/store.js"></script>
+        <script src="../../shared/js/auth.js"></script>
+        <script src="script.js"></script>
+    </body>
+</html>

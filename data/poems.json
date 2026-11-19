@@ -1,0 +1,66 @@
+{
+  "poets": [
+    {
+      "name": "Meera Anand",
+      "languages": [
+        "English"
+      ]
+    },
+    {
+      "name": "Rohan Verma",
+      "languages": [
+        "English"
+      ]
+    },
+    {
+      "name": "Shruti Mishra",
+      "languages": [
+        "Hindi"
+      ]
+    },
+    {
+      "name": "Imran Qureshi",
+      "languages": [
+        "English",
+        "Hindi"
+      ]
+    }
+  ],
+  "poems": [
+    {
+      "poet": 0,
+      "language": "English",
+      "title": "The Monsoon Is Late This Year",
+      "hoursAgo": 3,
+      "text": "The monsoon is late this year,\nand the whole street is holding its breath.\nMy neighbour waters the dust in her courtyard\nas though a promise could be taught to rain.\n\nThe clothes on the line have forgotten how to be wet.\nThe crows sit low on the wires, saying nothing.\nEvery evening the sky puts on a grey coat,\nwalks around the roofs, and goes back home unspent.\n\nI keep a bucket by the door anyway.\nSome faith is only a bucket by a door,\nan old habit of the hands\nwaiting for the first heavy drop to land."
+    },
+    {
+      "poet": 1,
+      "language": "English",
+      "title": "Night Shift",
+      "hoursAgo": 9,
+      "text": "At three in the morning the office hums\nlike a refrigerator in an empty house.\nThe cleaner pushes her cart past my desk\nand we nod, two small lights in a very large dark.\n\nI have eaten lunch at midnight so many times\nthat the hours no longer know their names.\nThe city outside is a spilled box of beads,\neach window a life I will never be told about.\n\nWhen the first bus finally grinds past,\nI carry the morning home like a cup too full,\nstepping carefully, afraid of losing\nthe one quiet hour that belongs to nobody."
+    },
+    {
+      "poet": 2,
+      "language": "Hindi",
+      "title": "माँ की रसोई",
+      "hoursAgo": 20,
+      "text": "सुबह होने से पहले ही जाग जाती थी रसोई,\nमाँ के हाथों की चूड़ियों से बजती हुई।\nतवे पर रोटी फूलती थी जैसे कोई छोटा चाँद,\nऔर घर भर में फैल जाती थी गर्म गंध।\n\nवह कभी नहीं कहती थी कि थक गई है,\nबस पल्लू से माथे का पसीना पोंछ लेती थी।\nहम बच्चे थाली के आगे बैठे शिकायत करते रहे,\nऔर वह चुपचाप हमारी भूख गिनती रही।\n\nआज मैं अपनी रसोई में अकेली खड़ी हूँ,\nवही आटा है, वही तवा है, वही आग।\nपर रोटी में वह स्वाद नहीं आता,\nशायद उसमें माँ की थकान घुलनी बाकी है।"
+    },
+    {
+      "poet": 3,
+      "language": "English",
+      "title": "Railway Platform, Platform Four",
+      "hoursAgo": 30,
+      "text": "The train is forty minutes late,\nso the platform becomes a small country.\nA boy sells tea in clay cups that will return to earth,\nan old man reads yesterday's news with great attention.\n\nWe are strangers practising patience together.\nSomeone shares a biscuit without being asked.\nA woman rocks her sleeping child with one foot,\nher eyes fixed on the place where the tracks vanish.\n\nWhen the engine finally rolls in, roaring,\nwe all stand up as if from a long prayer.\nNobody will remember anyone's face,\nbut for forty minutes we were a village."
+    },
+    {
+      "poet": 2,
+      "language": "Hindi",
+      "title": "बारिश के बाद",
+      "hoursAgo": 52,
+      "text": "बारिश रुकी तो आँगन ने गहरी साँस ली,\nमिट्टी की ख़ुशबू छत से उतरकर आई।\nनीम की पत्तियों से टपकती रहीं देर तक बूँदें,\nजैसे पेड़ अब भी कुछ याद कर रहा हो।\n\nगली में बच्चे काग़ज़ की नावें लेकर निकले,\nहर नाव में एक छोटा सा सपना बैठा था।\nपानी जिधर ले गया, वे उधर बह चले,\nऔर हँसी दूर तक उनके पीछे दौड़ती रही।\n\nमैं खिड़की पर खड़ी देखती रही चुपचाप,\nधुली हुई दुनिया कितनी नई लग रही थी।\nकभी कभी थोड़ा सा भीग जाना ही काफ़ी होता है\nसब कुछ फिर से शुरू करने के लिए।"
+    }
+  ]
+}

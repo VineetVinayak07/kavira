@@ -1,0 +1,107 @@
+/* poem page */
+.poem__back {
+    text-decoration: none;
+    font-family: var(--font-ui);
+    font-size: 16px;
+    font-weight: 500;
+    min-height: var(--tap);
+    display: inline-flex;
+    align-items: center;
+}
+.poem {
+    padding: 32px;
+    max-width: 760px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+}
+.poem__head h1 {
+    font-family: var(--font-serif);
+    font-size: 36px;
+    line-height: 1.2;
+}
+.poem__byline {
+    margin-top: 8px;
+    color: var(--ink-faint);
+}
+.poem__text {
+    font-family: var(--font-serif);
+    font-size: 20px;
+    line-height: 1.9;
+    white-space: pre-wrap;
+}
+.poem__text[lang="hi"] {
+    font-family: var(--font-hindi);
+}
+.poem__missing {
+    padding: 40px 32px;
+}
+.poem__section {
+    padding: 32px;
+    border-top: 1px solid var(--line-soft);
+    max-width: 760px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.poem__section h2 {
+    font-family: var(--font-serif);
+    font-size: 24px;
+}
+.poem__form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+}
+.poem__form .field {
+    width: 100%;
+}
+.write__count {
+    font-size: 14px;
+    color: var(--ink-faint);
+}
+.write__count[data-enough="true"] {
+    color: var(--ink);
+    font-weight: 600;
+}
+
+/* a review: the big quote mark is a pseudo-element, not text in the page */
+.review {
+    position: relative;
+    border: 1px solid var(--line-soft);
+    padding: 16px 16px 16px 48px;
+    margin: 0 0 12px;
+}
+.review::before {
+    content: "\201C";
+    position: absolute;
+    left: 14px;
+    top: 2px;
+    font-family: var(--font-serif);
+    font-size: 44px;
+    line-height: 1;
+}
+.review__who {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+.review__who span {
+    color: var(--ink-faint);
+}
+.review__text {
+    white-space: pre-wrap;
+}
+@media (max-width: 720px) {
+    .poem,
+    .poem__section {
+        padding: 20px 16px;
+    }
+    .poem__head h1 {
+        font-size: 28px;
+    }
+}

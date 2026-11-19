@@ -1,0 +1,144 @@
+/* layout.css - the page frame. Three columns on desktop, one column with a bottom menu on phones. */
+
+/* signed-in pages: menu | main | side panel */
+.app {
+    max-width: 1280px;
+    min-height: 100vh;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    border-left: 1px solid var(--line);
+    border-right: 1px solid var(--line);
+}
+.app__nav {
+    flex: 0 0 var(--nav-width);
+}
+.app__main {
+    flex: 999 1 560px;
+    min-width: 0;
+    border-left: 1px solid var(--line);
+}
+.app__panel {
+    flex: 0 0 var(--panel-width);
+    border-left: 1px solid var(--line);
+}
+.app__logo {
+    height: var(--header-height);
+    display: flex;
+    align-items: center;
+    padding: 0 28px;
+    border-bottom: 1px solid var(--line);
+    font-family: var(--font-serif);
+    font-size: 28px;
+    font-weight: 600;
+    text-decoration: none;
+}
+.app__header {
+    height: var(--header-height);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 0 32px;
+    border-bottom: 1px solid var(--line);
+    font-family: var(--font-serif);
+    font-size: 22px;
+    font-weight: 600;
+}
+
+/* menu */
+.menu {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+.menu a {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-height: 48px;
+    padding: 0 14px;
+    text-decoration: none;
+    font-size: 17px;
+    font-weight: 500;
+}
+.menu a[aria-current="page"] {
+    background: var(--active);
+    font-weight: 600;
+}
+
+/* signed-out pages: logo bar on top, content centred below */
+.auth-header {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 28px 32px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    align-items: center;
+    justify-content: space-between;
+}
+.auth-header .logo {
+    font-family: var(--font-serif);
+    font-size: 30px;
+    font-weight: 600;
+    text-decoration: none;
+}
+.auth-header .link {
+    min-height: var(--tap);
+    display: inline-flex;
+    align-items: center;
+    font-weight: 500;
+    text-underline-offset: 4px;
+}
+
+/* narrower screens */
+@media (max-width: 960px) {
+    .app__panel {
+        flex: 1 1 100%;
+        border-left: 0;
+        border-top: 1px solid var(--line);
+    }
+}
+@media (max-width: 720px) {
+    .auth-header {
+        padding: 20px 16px;
+    }
+    .app__nav {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 10;
+        background: var(--ground);
+        border-top: 1px solid var(--line);
+        flex-basis: auto;
+    }
+    .app__logo {
+        display: none;
+    }
+    .menu {
+        flex-direction: row;
+        justify-content: space-around;
+        padding: 4px;
+        gap: 0;
+    }
+    .menu a {
+        flex: 1;
+        min-width: 0;
+        flex-direction: column;
+        justify-content: center;
+        gap: 2px;
+        min-height: 56px;
+        padding: 0 6px;
+        font-size: 12px;
+    }
+    .app__main {
+        border-left: 0;
+        padding-bottom: 72px;
+    }
+    .app__header {
+        padding: 0 16px;
+    }
+}

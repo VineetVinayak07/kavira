@@ -1,0 +1,40 @@
+/* my circle page */
+.circle__people {
+    padding: 24px 32px;
+    border-bottom: 1px solid var(--line);
+}
+.circle__people h2 {
+    font-family: var(--font-serif);
+    font-size: 22px;
+    margin-bottom: 12px;
+}
+.circle__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+}
+.circle__list li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid var(--line-soft);
+    padding: 10px 12px;
+}
+.circle__list small {
+    display: block;
+    color: var(--ink-faint);
+}
+#feed-notice {
+    margin: 24px 32px;
+}
+@media (max-width: 720px) {
+    .circle__people {
+        padding: 20px 16px;
+    }
+    #feed-notice {
+        margin: 16px;
+    }
+}

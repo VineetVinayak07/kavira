@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta
+            name="description"
+            content="Kavira: a place for poets writing in English and Hindi to share poems and review each other."
+        />
+        <title>Kavira - Write</title>
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Serif+Devanagari:wght@400;600&family=Source+Serif+4:wght@400;600&display=swap"
+        />
+        <link rel="stylesheet" href="../../shared/css/tokens.css" />
+        <link rel="stylesheet" href="../../shared/css/base.css" />
+        <link rel="stylesheet" href="../../shared/css/components.css" />
+        <link rel="stylesheet" href="../../shared/css/layout.css" />
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <div class="app">
+            <aside class="app__nav">
+                <a class="app__logo" href="../home/index.html">Kavira</a>
+                <nav id="menu" class="menu" aria-label="Main"></nav>
+            </aside>
+            <main class="app__main">
+                <div class="app__header"><span>Write</span></div>
+
+                <form id="write-form" class="write" novalidate>
+                    <div class="field">
+                        <label for="title" class="required">Title</label>
+                        <input id="title" type="text" placeholder="Name your poem" maxlength="100" required />
+                        <p class="field__error" id="title-error" role="alert"></p>
+                    </div>
+
+                    <fieldset class="field">
+                        <legend>Language</legend>
+                        <div class="choice-row">
+                            <label class="choice"
+                                ><input type="radio" name="language" value="English" checked /> English</label
+                            >
+                            <label class="choice"
+                                ><input type="radio" name="language" value="Hindi" /> Hindi</label
+                            >
+                        </div>
+                    </fieldset>
+
+                    <div class="field">
+                        <label for="text" class="required">Poem</label>
+                        <textarea id="text" rows="12" placeholder="Write here" required></textarea>
+                        <p class="write__count" id="word-count" aria-live="polite"></p>
+                        <p class="field__error" id="text-error" role="alert"></p>
+                        <p class="field__hint">Your unfinished poem is kept while this tab stays open.</p>
+                    </div>
+
+                    <div class="write__actions">
+                        <button class="btn btn--primary" type="submit">Publish</button>
+                    </div>
+                </form>
+            </main>
+        </div>
+
+        <script src="../../shared/js/utils.js"></script>
+        <script src="../../shared/js/store.js"></script>
+        <script src="../../shared/js/auth.js"></script>
+        <script src="../../shared/js/poems.js"></script>
+        <script src="../../shared/js/reviews.js"></script>
+        <script src="../../shared/js/circle.js"></script>
+        <script src="../../shared/js/layout.js"></script>
+        <script src="../../shared/js/poem-card.js"></script>
+        <script src="../../shared/js/seed.js"></script>
+        <script src="script.js"></script>
+    </body>
+</html>

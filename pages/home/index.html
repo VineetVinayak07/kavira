@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta
+            name="description"
+            content="Kavira: a place for poets writing in English and Hindi to share poems and review each other."
+        />
+        <title>Kavira - Home</title>
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Serif+Devanagari:wght@400;600&family=Source+Serif+4:wght@400;600&display=swap"
+        />
+        <link rel="stylesheet" href="../../shared/css/tokens.css" />
+        <link rel="stylesheet" href="../../shared/css/base.css" />
+        <link rel="stylesheet" href="../../shared/css/components.css" />
+        <link rel="stylesheet" href="../../shared/css/layout.css" />
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <div class="app">
+            <aside class="app__nav">
+                <a class="app__logo" href="../home/index.html">Kavira</a>
+                <nav id="menu" class="menu" aria-label="Main"></nav>
+            </aside>
+            <main class="app__main">
+                <div class="app__header">
+                    <span>Home</span>
+                    <label class="home__filter">
+                        <span class="sr-only">Show poems in</span>
+                        <select id="language-filter">
+                            <option value="">All languages</option>
+                            <option value="English">English</option>
+                            <option value="Hindi">Hindi</option>
+                        </select>
+                    </label>
+                </div>
+                <p id="feed-notice" class="notice" hidden></p>
+                <section id="feed" aria-live="polite" aria-label="Poems"></section>
+            </main>
+
+            <aside class="app__panel">
+                <div class="home__panel">
+                    <h2>Hello, <span id="welcome"></span></h2>
+                    <p>Read a poem, leave a thoughtful review, and your own poem will find readers too.</p>
+                    <a class="btn btn--primary btn--block" href="../write/index.html">Write a poem</a>
+
+                    <section id="saved-box" class="saved" aria-label="Saved poems">
+                        <h3>Saved</h3>
+                        <p class="saved__hint">Drag a poem here, or press Save on it.</p>
+                        <ul id="saved-list"></ul>
+                    </section>
+
+                    <a class="link" href="../about/index.html">About Kavira and the rules</a>
+                </div>
+            </aside>
+        </div>
+
+        <script src="../../shared/js/utils.js"></script>
+        <script src="../../shared/js/store.js"></script>
+        <script src="../../shared/js/auth.js"></script>
+        <script src="../../shared/js/poems.js"></script>
+        <script src="../../shared/js/reviews.js"></script>
+        <script src="../../shared/js/circle.js"></script>
+        <script src="../../shared/js/layout.js"></script>
+        <script src="../../shared/js/poem-card.js"></script>
+        <script src="../../shared/js/seed.js"></script>
+        <script src="script.js"></script>
+    </body>
+</html>

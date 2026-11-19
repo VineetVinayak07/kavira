@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta
+            name="description"
+            content="About Kavira, a place for poets writing in English and Hindi, and the rules of the community."
+        />
+        <title>Kavira - About</title>
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Serif+Devanagari:wght@400;600&family=Source+Serif+4:wght@400;600&display=swap"
+        />
+        <link rel="stylesheet" href="../../shared/css/tokens.css" />
+        <link rel="stylesheet" href="../../shared/css/base.css" />
+        <link rel="stylesheet" href="../../shared/css/components.css" />
+        <link rel="stylesheet" href="../../shared/css/layout.css" />
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <a class="skip-link" href="#content">Skip to the content</a>
+
+        <header class="auth-header">
+            <a class="logo" href="../sign-in/index.html">Kavira</a>
+            <nav aria-label="About page">
+                <a class="link" href="#story">The idea</a>
+                <a class="link" href="#numbers">The numbers</a>
+                <a class="link" href="#media">Sound and film</a>
+                <a class="link" href="#rules">Rules</a>
+                <a class="link" id="back-link" href="../sign-in/index.html">Back</a>
+            </nav>
+        </header>
+
+        <main id="content" class="about">
+            <h1>About Kavira</h1>
+
+            <section id="story" aria-labelledby="story-heading">
+                <h2 id="story-heading">The idea</h2>
+                <div class="about__split">
+                    <article>
+                        <p>
+                            <strong>Kavira</strong> is a small, calm place for poets who write in
+                            <em>English</em> and <em>Hindi</em>. Every poet is placed in a
+                            <mark>circle of up to six poets</mark> who read and review each other's work.
+                        </p>
+                        <p>
+                            Poetry grows when someone reads it closely. So reviews on Kavira are written with
+                            care, and they are public.
+                        </p>
+                        <blockquote>
+                            <p>A poem is finished only when someone has read it.</p>
+                        </blockquote>
+                        <h3>How it works</h3>
+                        <ol>
+                            <li>Create an account. You must be 16 or older.</li>
+                            <li>Write a poem of at least 80 words, and publish it.</li>
+                            <li>Read the poems of your circle.</li>
+                            <li>Leave a review of at least 30 words.</li>
+                        </ol>
+                        <h3>Made with</h3>
+                        <ul>
+                            <li>HTML, CSS and JavaScript only</li>
+                            <li>Browser storage, so nothing leaves your computer</li>
+                            <li>GitHub Pages for hosting</li>
+                        </ul>
+                        <p>
+                            Read more about
+                            <a href="https://developer.mozilla.org/en-US/docs/Web/HTML" target="_blank" rel="noopener">HTML on MDN</a>.
+                        </p>
+                    </article>
+                    <figure class="about__figure">
+                        <img
+                            src="../../assets/images/kavira-mark.svg"
+                            alt="Kavira mark: a quill over three lines of verse"
+                            width="160"
+                            height="160"
+                        />
+                        <figcaption>The Kavira mark, shown as an image file.</figcaption>
+                    </figure>
+                </div>
+
+                <figure class="about__figure about__figure--wide">
+                    <!-- the same idea drawn directly in the page as inline SVG -->
+                    <svg
+                        viewBox="0 0 360 120"
+                        width="360"
+                        height="120"
+                        role="img"
+                        aria-labelledby="circle-title"
+                    >
+                        <title id="circle-title">Six poets in a circle around one poem</title>
+                        <circle
+                            cx="180"
+                            cy="60"
+                            r="44"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-dasharray="4 4"
+                        />
+                        <rect
+                            x="164"
+                            y="44"
+                            width="32"
+                            height="32"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                        />
+                        <line x1="170" y1="54" x2="190" y2="54" stroke="currentColor" stroke-width="2" />
+                        <line x1="170" y1="62" x2="190" y2="62" stroke="currentColor" stroke-width="2" />
+                        <line x1="170" y1="70" x2="182" y2="70" stroke="currentColor" stroke-width="2" />
+                        <circle cx="180" cy="16" r="8" fill="currentColor" />
+                        <circle cx="218" cy="38" r="8" fill="currentColor" />
+                        <circle cx="218" cy="82" r="8" fill="currentColor" />
+                        <circle cx="180" cy="104" r="8" fill="currentColor" />
+                        <circle cx="142" cy="82" r="8" fill="currentColor" />
+                        <circle cx="142" cy="38" r="8" fill="currentColor" />
+                    </svg>
+                    <figcaption>A circle: six poets around the poems they share.</figcaption>
+                </figure>
+            </section>
+
+            <section id="numbers" aria-labelledby="numbers-heading">
+                <h2 id="numbers-heading">The numbers</h2>
+                <table class="about__table">
+                    <caption>
+                        The limits Kavira keeps
+                    </caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">What</th>
+                            <th scope="col">Limit</th>
+                            <th scope="col">Why</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">Poem length</th>
+                            <td>80 words or more</td>
+                            <td>Long enough to be worth a review</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Review length</th>
+                            <td>30 words or more</td>
+                            <td>Thoughtful, not a one-line "nice"</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Reviews per poem</th>
+                            <td>One per reader</td>
+                            <td>Keeps every voice fair</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Circle size</th>
+                            <td>Up to 6 poets</td>
+                            <td>Small enough to know each other</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Age</th>
+                            <td>16 and over</td>
+                            <td>Community safety</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="media" aria-labelledby="media-heading">
+                <h2 id="media-heading">Sound and film</h2>
+            <p>The audio and video below belong to their creators and are shown here only to demonstrate the HTML audio and video elements.</p>
+                <div class="about__split">
+                    <figure>
+                        <audio controls preload="none" src="../../assets/audio/snowfall.mp3">
+                            Your browser does not support audio.
+                        </audio>
+                        <figcaption>Snowfall, by neheart x reidenshi.</figcaption>
+                    </figure>
+                    <figure>
+                        <video controls preload="metadata" width="320" height="180">
+                            <source src="../../assets/video/poem-recitation.mp4" type="video/mp4" />
+                            Your browser does not support video.
+                        </video>
+                        <figcaption>Vardan Mangunga Nahi (Suman ji), recited by Shailendra Kumar Sharma.</figcaption>
+                    </figure>
+                </div>
+            </section>
+
+            <section id="rules" aria-labelledby="rules-heading">
+                <h2 id="rules-heading">Community rules</h2>
+                <iframe
+                    class="about__frame"
+                    src="../rules/index.html"
+                    title="Community rules"
+                    loading="lazy"
+                ></iframe>
+                <p><a href="../rules/index.html">Open the rules on their own page</a></p>
+            </section>
+        </main>
+
+        <footer class="about__footer">
+            <p>Kavira is a student project for CSE326 Internet Programming.</p>
+        </footer>
+
+        <script src="../../shared/js/store.js"></script>
+        <script src="script.js"></script>
+    </body>
+</html>

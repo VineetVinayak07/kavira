@@ -1,0 +1,30 @@
+/* join page: one centred card. */
+.join-form {
+    width: calc(100% - 32px);
+    max-width: 560px;
+    margin: 8px auto 64px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+.join-form h1 {
+    font-size: 34px;
+}
+.join-form__lead {
+    margin-top: 8px;
+    color: var(--ink-soft);
+}
+.join-form__rules {
+    font-size: 13px;
+    color: var(--ink-faint);
+}
+.join-form fieldset {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+@media (max-width: 560px) {
+    .card.join-form {
+        padding: 24px;
+    }
+}

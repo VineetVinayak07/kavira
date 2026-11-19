@@ -1,0 +1,25 @@
+/* write page - only what is special here; the rest comes from shared/css */
+.write {
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    max-width: 760px;
+}
+.write textarea {
+    font-family: var(--font-serif);
+    font-size: 18px;
+}
+.write__count {
+    font-size: 14px;
+    color: var(--ink-faint);
+}
+.write__count[data-enough="true"] {
+    color: var(--ink);
+    font-weight: 600;
+}
+@media (max-width: 720px) {
+    .write {
+        padding: 20px 16px 96px;
+    }
+}

@@ -1,0 +1,28 @@
+/* tokens.css - every colour, font and size used on the site lives here.
+   Change a value once and it changes everywhere. */
+:root {
+    /* colours */
+    --ground: #fbfbf9; /* page background */
+    --paper: #ffffff; /* cards and inputs */
+    --ink: #111111; /* main text and lines */
+    --ink-soft: #3c4046; /* secondary text */
+    --ink-faint: #55595f; /* labels and hints */
+    --line: #111111; /* strong borders */
+    --line-soft: #d4d4ce; /* separators inside lists */
+    --active: #ecece6; /* highlighted menu item */
+    --accent: #111111; /* the one accent colour: black */
+    --danger: #a61b12;
+    --disabled-bg: #e8e8e3;
+    --disabled-line: #b9b9b3;
+
+    /* fonts */
+    --font-ui: Inter, system-ui, sans-serif;
+    --font-serif: "Source Serif 4", Georgia, serif;
+    --font-hindi: "Noto Serif Devanagari", serif;
+
+    /* sizes */
+    --nav-width: 240px;
+    --panel-width: 320px;
+    --header-height: 56px;
+    --tap: 44px; /* smallest touch target */
+}
