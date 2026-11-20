@@ -4,7 +4,7 @@ Kavira is a website for people who write poems in English and Hindi. You write a
 
 This is our project for CSE326 (Internet Programming).
 
-**Live site:** (add the Vercel link here)
+**Live site:** https://kavira-zeta.vercel.app/
 
 ## What you can do on the site
 
@@ -17,14 +17,6 @@ This is our project for CSE326 (Internet Programming).
 - **Profile.** Your own poems, your saved poems and a few numbers.
 - **About.** What the site is, the rules, and a page where we show audio, video, a table and drawings in plain HTML.
 
-## How to run it on your own computer
-
-You need VS Code and its "Live Server" extension. The site will not work if you just double-click `index.html`, because browsers block the files it needs to load.
-
-1. Open the `kavira` folder in VS Code.
-2. Right-click `index.html` and choose **Open with Live Server**.
-
-To run the tests (you need Node installed): `node tests/run.js`
 
 ## How it works, in simple words
 
@@ -35,7 +27,7 @@ Everything is HTML, CSS and JavaScript. There is no server we wrote ourselves.
 - Accounts, poems, reviews and saved poems are stored online in a **Supabase** database (Supabase is a free service that gives you a database and a login system). Everyone who uses the site sees the same poems, and your circle is the same on every device.
 - The database itself checks the rules (80 words, 30 words, one review per poem, no review on your own poem, 16 or older), so they cannot be skipped even by someone clever.
 - `data/poems.json` is a plain text file with sample poems. JSON is just a simple way to write a list of things in text. If the database cannot be reached, the site reads this file with `fetch` and shows the sample poems instead of an empty page.
-- Your browser's Local Storage remembers which language filter you picked on Home, and Session Storage keeps your half-written poem.
+
 
 ## What is in each folder
 
@@ -79,16 +71,11 @@ kavira/
 - Only `store.js` saves things. Pages ask it, they never touch browser storage themselves.
 - Every function has a comment above it saying what it does.
 
-## Setting up your own Supabase (only if you want to run your own copy)
-
-1. Create a free project at supabase.com.
-2. Open the SQL Editor, paste all of `supabase/schema.sql` and press Run.
-3. Go to Authentication, then Sign In / Providers, then Email, and turn off "Confirm email".
-4. Copy the project URL and the publishable key into `shared/js/config.js`.
 
 The URL and publishable key in `config.js` are meant to be public. Never put the secret or service_role key in the code.
 
 ## Who did what
 
-- (Your name): add what you built
-- (Teammate's name): add what they did
+Vineet Bahan Vinayak – Came up with the idea of Kavira and planned what the site should do and which pages it needs. Wrote and modified the HTML and JavaScript for the pages and made sure all files, scripts and styles link to each other correctly. Created the GitHub repository and uploaded the project. Set up the Supabase database and connected it to the site. AI assistance was used as a reference for the code and the Supabase setup, which are outside our syllabus, the code was then adapted and integrated by us.
+
+Rawnak Raj – Designed the look of the website and wrote the CSS. Created the sample poet profiles and poems in the JSON file. Tested the code and the website page by page and recorded the results in the testing report. Deployed the project on Vercel.
